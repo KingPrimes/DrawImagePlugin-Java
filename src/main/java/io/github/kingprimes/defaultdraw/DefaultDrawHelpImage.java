@@ -11,7 +11,7 @@ import java.util.List;
 public class DefaultDrawHelpImage {
 
     public static byte[] drawHelpImage(List<String> helpInfo) {
-        BufferedImage image = new BufferedImage(400, 800, BufferedImage.TYPE_INT_ARGB_PRE);
+        BufferedImage image = new BufferedImage(1000, 1400, BufferedImage.TYPE_INT_ARGB_PRE);
         Graphics graphics = image.getGraphics();
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
