@@ -1,0 +1,53 @@
+package io.github.kingprimes.model.worldstate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.util.List;
+
+@Data
+@Accessors(chain = true)
+public class InGameMarket {
+
+    @JsonProperty("LandingPage")
+    private LandingPage landingPage;
+
+    public enum CategoryName {
+        NEW_PLAYER,
+        NEW,
+        COMMUNITY,
+        HEIRLOOM,
+        TENNOGEN,
+        SALE,
+        WISH_LIST,
+        PREMIUM_BUNDLES,
+
+    }
+
+    @Data
+    @Accessors(chain = true)
+    public static class LandingPage {
+        @JsonProperty("Categories")
+        private List<Category> categories;
+    }
+
+    @Data
+    @Accessors(chain = true)
+    public static class Category {
+        // 分类名称
+        @JsonProperty("CategoryName")
+        private CategoryName categoryName;
+        // 子分类名称
+        @JsonProperty("Name")
+        private String name;
+        // newplayer popular
+        @JsonProperty("Icon")
+        private String icon;
+        // 添加到菜单
+        @JsonProperty("AddToMenu")
+        private Boolean addToMenu;
+        @JsonProperty("Items")
+        private List<String> items;
+    }
+}
