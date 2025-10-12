@@ -2,16 +2,18 @@ package io.github.kingprimes.defaultdraw;
 
 import io.github.kingprimes.image.ImageCombiner;
 import io.github.kingprimes.image.ImageIOUtils;
-import io.github.kingprimes.image.TransformUtils;
 import io.github.kingprimes.utils.Fonts;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DefaultDrawHelpImage {
+
+    private static final Pattern PIPE_PATTERN = Pattern.compile("\\|");
+
 
     public static byte[] drawHelpImage(List<String> helpInfo) {
         final int WIDTH = 1200;
@@ -61,15 +63,13 @@ public class DefaultDrawHelpImage {
         // ================== 优化核心：合并循环 + 预计算坐标 ==================
         // 预计算所有行的坐标和背景信息（单次循环）
         List<RowInfo> rowInfos = new ArrayList<>(helpInfo.size());
-        int currentColumn = 0;
-        int currentRowInColumn = 0;
+        int currentColumn;
+        int currentRowInColumn;
 
         for (int i = 0; i < helpInfo.size(); i++) {
             // 计算当前行列位置（避免循环内取模运算）
-            if (i > 0 && currentRowInColumn % ITEMS_PER_COLUMN == 0) {
-                currentColumn++;
-                currentRowInColumn = 0;
-            }
+            currentColumn = i / ITEMS_PER_COLUMN;
+            currentRowInColumn = i % ITEMS_PER_COLUMN;
 
             // 预计算坐标
             int rowX = centerX + (currentColumn * columnWidth);
@@ -77,24 +77,22 @@ public class DefaultDrawHelpImage {
 
             // 预解析数据（避免重复分割字符串）
             String line = helpInfo.get(i);
-            String[] parts = line.split("\\|");
+            String[] parts = PIPE_PATTERN.split(line, 2);
             String command = parts.length > 0 ? parts[0] : "";
 
             rowInfos.add(new RowInfo(rowX, rowY, currentRowInColumn % 2 == 0, command));
-            currentRowInColumn++;
         }
 
         // 1. 绘制所有斑马纹背景（批量操作）
         combiner.setColor(evenRowColor);
         for (RowInfo info : rowInfos) {
             if (info.isEvenRow) {
-                combiner.fillRect(info.x, info.y + (ROW_HEIGHT / 2) - (FONT_SIZE / 2), WIDTH, ROW_HEIGHT);
+                combiner.fillRect(info.x, info.y + (ROW_HEIGHT / 2) - (FONT_SIZE / 2), columnWidth, ROW_HEIGHT);
             }
         }
 
         // 2. 绘制背景图片（不变）
-        BufferedImage back = TransformUtils.scaleImage(ImageIOUtils.getXiaoMeiWangRightImage(), WIDTH / 2, totalHeight);
-        combiner.drawImage(back, WIDTH / 2 + 40, imageY);
+        combiner.drawImage(ImageIOUtils.getXiaoMeiWangRightImage(), WIDTH / 2 + 40, imageY, WIDTH / 2, totalHeight);
 
         // 3. 绘制所有数据行文字（批量操作）
         combiner.setColor(textColor);
