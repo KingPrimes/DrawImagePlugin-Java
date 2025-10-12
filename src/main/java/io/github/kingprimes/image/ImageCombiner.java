@@ -80,18 +80,6 @@ public class ImageCombiner {
     }
 
     /**
-     * 设置当前使用的字体
-     *
-     * @param font 要设置的字体对象，如果为null则使用图形上下文的默认字体
-     * @return 返回当前ImageCombiner实例，支持链式调用
-     */
-    public ImageCombiner setFont(Font font) {
-        this.currentFont = font;
-        this.g2.setFont(font != null ? font : g2.getFont());
-        return this;
-    }
-
-    /**
      * 设置当前绘图颜色
      *
      * @param color 要设置的颜色，如果为null则使用黑色作为兜底颜色
@@ -268,7 +256,6 @@ public class ImageCombiner {
         g2.fillPolygon(xPoints, yPoints, nPoints);
         return this;
     }
-
 
     /**
      * 向图像绘制简单文本（无样式配置，需手动指定绘制坐标），支持方法链式调用
@@ -887,6 +874,47 @@ public class ImageCombiner {
 
     public Font getFont() {
         return currentFont;
+    }
+
+    /**
+     * 设置当前使用的字体
+     *
+     * @param font 要设置的字体对象，如果为null则使用图形上下文的默认字体
+     * @return 返回当前ImageCombiner实例，支持链式调用
+     */
+    public ImageCombiner setFont(Font font) {
+        this.currentFont = font;
+        this.g2.setFont(font != null ? font : g2.getFont());
+        return this;
+    }
+
+    /**
+     * 在当前图形上下文中绘制指定的图片到指定位置
+     *
+     * @param back 要绘制的图片对象
+     * @param x    图片绘制位置的x坐标
+     * @param y    图片绘制位置的y坐标
+     * @return 返回当前ImageCombiner实例，支持链式调用
+     */
+    public ImageCombiner drawImage(BufferedImage back, int x, int y) {
+        g2.drawImage(back, x, y, null);
+        return this;
+    }
+
+    /**
+     * 在指定位置绘制图像
+     *
+     * @param img    要绘制的图像对象
+     * @param x      图像绘制的x坐标位置
+     * @param y      图像绘制的y坐标位置
+     * @param width  图像绘制的宽度
+     * @param height 图像绘制的高度
+     * @return 返回当前ImageCombiner实例，支持链式调用
+     */
+    public ImageCombiner drawImage(Image img, int x, int y,
+                                   int width, int height) {
+        g2.drawImage(img, x, y, width, height, null);
+        return this;
     }
 
     public enum Align {

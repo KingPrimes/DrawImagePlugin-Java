@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 @SuppressWarnings("unused")
 public final class ImageIOUtils {
@@ -27,5 +28,31 @@ public final class ImageIOUtils {
             g2.fillRect(0, 0, width, height);
         }
         return image;
+    }
+
+    public static BufferedImage getXiaoMeiWangRightImage() {
+        return getResourcesImage("/image/XiaoMeiWang-right.png");
+    }
+
+    public static BufferedImage getXiaoMeiWangKneelingImage() {
+        return getResourcesImage("/image/XiaoMeiWang-kneeling.png");
+    }
+
+    public static BufferedImage getXiaoMeiWangIllustrationImage() {
+        return getResourcesImage("/image/XiaoMeiWang-illustration.png");
+    }
+
+    public static BufferedImage getResourcesImage(String path) {
+        try {
+            // 使用 Classloader 从 resources/image 目录加载图片
+            InputStream inputStream = ImageIOUtils.class.getResourceAsStream(path);
+            if (inputStream == null) {
+                throw new IOException("图片文件未找到: %s".formatted(path));
+            }
+            // 使用 ImageIO 读取图片
+            return ImageIO.read(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("无法加载图片: %s".formatted(e.getMessage()), e);
+        }
     }
 }
