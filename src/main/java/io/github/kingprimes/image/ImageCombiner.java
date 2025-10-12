@@ -104,6 +104,173 @@ public class ImageCombiner {
     }
 
     /**
+     * 在图像上绘制并填充一个矩形区域
+     *
+     * @param x      矩形左上角的 x 坐标
+     * @param y      矩形左上角的 y 坐标
+     * @param width  矩形的宽度
+     * @param height 矩形的高度
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner fillRect(int x, int y, int width, int height) {
+        g2.fillRect(x, y, width, height);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制一个圆角矩形边框
+     *
+     * @param x         矩形左上角的 x 坐标
+     * @param y         矩形左上角的 y 坐标
+     * @param width     矩形的宽度
+     * @param height    矩形的高度
+     * @param arcWidth  圆角的宽度
+     * @param arcHeight 圆角的高度
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawRoundRect(int x, int y, int width, int height,
+                                       int arcWidth, int arcHeight) {
+        g2.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制并填充一个圆角矩形区域
+     *
+     * @param x         矩形左上角的 x 坐标
+     * @param y         矩形左上角的 y 坐标
+     * @param width     矩形的宽度
+     * @param height    矩形的高度
+     * @param arcWidth  圆角的宽度
+     * @param arcHeight 圆角的高度
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner fillRoundRect(int x, int y, int width, int height,
+                                       int arcWidth, int arcHeight) {
+        g2.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+        return this;
+    }
+
+    /**
+     * 向图像绘制一条直线，支持方法链式调用
+     *
+     * @param x1 直线的起点X坐标
+     * @param y1 直线的起点Y坐标
+     * @param x2 直线的终点X坐标
+     * @param y2 直线的终点Y坐标
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawLine(int x1, int y1, int x2, int y2) {
+        g2.drawLine(x1, y1, x2, y2);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制一个椭圆边框
+     *
+     * @param x      椭圆左上角的 x 坐标
+     * @param y      椭圆左上角的 y 坐标
+     * @param width  椭圆的宽度
+     * @param height 椭圆的高度
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawOval(int x, int y, int width, int height) {
+        g2.drawOval(x, y, width, height);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制并填充一个椭圆区域
+     *
+     * @param x      椭圆左上角的 x 坐标
+     * @param y      椭圆左上角的 y 坐标
+     * @param width  椭圆的宽度
+     * @param height 椭圆的高度
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner fillOval(int x, int y, int width, int height) {
+        g2.fillOval(x, y, width, height);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制圆弧轮廓（基于指定的外接矩形和角度范围）
+     *
+     * @param x          外接矩形左上角的 x 坐标
+     * @param y          外接矩形左上角的 y 坐标
+     * @param width      外接矩形的宽度
+     * @param height     外接矩形的高度
+     * @param startAngle 圆弧的起始角度（以度为单位，0 度对应 3 点钟方向，顺时针递增）
+     * @param arcAngle   圆弧的角度范围（以度为单位，正值表示顺时针方向绘制）
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawArc(int x, int y, int width, int height,
+                                 int startAngle, int arcAngle) {
+        g2.drawArc(x, y, width, height, startAngle, arcAngle);
+        return this;
+    }
+
+    /**
+     * 填充一个弧形区域
+     *
+     * @param x          要填充的弧形左上角x坐标
+     * @param y          要填充的弧形左上角y坐标
+     * @param width      弧形的宽度
+     * @param height     弧形的高度
+     * @param startAngle 弧形的起始角度（以度为单位）
+     * @param arcAngle   弧形的角度范围（以度为单位）
+     * @return 返回当前ImageCombiner实例，支持链式调用
+     */
+    public ImageCombiner fillArc(int x, int y, int width, int height,
+                                 int startAngle, int arcAngle) {
+        g2.fillArc(x, y, width, height, startAngle, arcAngle);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制一条折线（由多个连续线段组成的开放多边形）
+     *
+     * @param xPoints 折线顶点的 x 坐标数组
+     * @param yPoints 折线顶点的 y 坐标数组
+     * @param nPoints 折线的顶点数量（即数组中有效坐标对的数量）
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawPolyline(int[] xPoints, int[] yPoints,
+                                      int nPoints) {
+        g2.drawPolyline(xPoints, yPoints, nPoints);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制多边形的轮廓（仅描边，不填充内部）
+     *
+     * @param xPoints 多边形顶点的 x 坐标数组
+     * @param yPoints 多边形顶点的 y 坐标数组
+     * @param nPoints 多边形的顶点数量（即数组中有效坐标对的数量）
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner drawPolygon(int[] xPoints, int[] yPoints,
+                                     int nPoints) {
+        g2.drawPolygon(xPoints, yPoints, nPoints);
+        return this;
+    }
+
+    /**
+     * 在图像上绘制并填充一个多边形区域
+     *
+     * @param xPoints 多边形顶点的 x 坐标数组
+     * @param yPoints 多边形顶点的 y 坐标数组
+     * @param nPoints 多边形的顶点数量（即数组中有效坐标对的数量）
+     * @return 当前 ImageCombiner 实例，用于支持链式调用
+     */
+    public ImageCombiner fillPolygon(int[] xPoints, int[] yPoints,
+                                     int nPoints) {
+        g2.fillPolygon(xPoints, yPoints, nPoints);
+        return this;
+    }
+
+
+    /**
      * 向图像绘制简单文本（无样式配置，需手动指定绘制坐标），支持方法链式调用
      * <p>
      * 文本绘制使用当前Graphics2D上下文的默认样式（字体、颜色等），若文本为null则不执行绘制操作
@@ -656,6 +823,10 @@ public class ImageCombiner {
         } finally {
             g2.dispose(); // 释放画笔资源
         }
+    }
+
+    public BufferedImage getCombinedImage() {
+        return target;
     }
 
     /**
