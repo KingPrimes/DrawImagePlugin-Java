@@ -11,16 +11,18 @@ import java.util.List;
 public final class TextUtils {
 
     // 私有构造，防止实例化
-    private TextUtils() {}
+    private TextUtils() {
+    }
 
     // ---------------------- 居中坐标计算 ----------------------
+
     /**
      * 计算单行文本在指定宽度画布上的水平居中X坐标
      * <p>计算逻辑：通过画布宽度减去文本宽度的差值除以2，得到文本左边缘的起始X坐标，使文本在水平方向居中</p>
      * <p>特殊处理：若{@code metrics}或{@code text}为null，直接返回0以避免空指针异常</p>
      *
-     * @param metrics 字体度量对象，用于获取文本宽度（通过{@link FontMetrics#stringWidth(String)}）
-     * @param text 待居中的单行文本内容（文本宽度将用于居中计算）
+     * @param metrics     字体度量对象，用于获取文本宽度（通过{@link FontMetrics#stringWidth(String)}）
+     * @param text        待居中的单行文本内容（文本宽度将用于居中计算）
      * @param canvasWidth 画布/容器的宽度（像素），即文本居中的参考宽度
      * @return 文本水平居中时的左边缘X坐标（像素）；若输入参数无效（metrics或text为null）则返回0
      */
@@ -34,6 +36,29 @@ public final class TextUtils {
      */
     public static int calculateCenterX(FontMetrics metrics, String text, int canvasWidth, int xOffset) {
         return calculateCenterX(metrics, text, canvasWidth) + xOffset;
+    }
+
+    /**
+     * 取文本宽度
+     *
+     * @param msg  文本
+     * @param font 字体
+     * @return 宽度
+     */
+    public static int getFortWidth(String msg, Font font) {
+        int n = msg.length();
+        return n / 2 * font.getSize() + font.getSize() * 2 - 20;
+    }
+
+    /**
+     * 取文本高度
+     *
+     * @param msg  文本
+     * @param font 字体
+     * @return 高度
+     */
+    public static int getFortHeight(String msg, Font font) {
+        return font.getSize() * msg.split("\n").length;
     }
 
     /**
@@ -56,6 +81,7 @@ public final class TextUtils {
     }
 
     // ---------------------- 自动换行 ----------------------
+
     /**
      * 根据最大宽度自动拆分文本（按空格分割）
      */
@@ -92,6 +118,7 @@ public final class TextUtils {
     }
 
     // ---------------------- 文本高度计算 ----------------------
+
     /**
      * 计算多行文本总高度（含行间距）
      */
@@ -102,6 +129,7 @@ public final class TextUtils {
     }
 
     // ---------------------- 基础文本绘制 ----------------------
+
     /**
      * 绘制带背景框的单行文本
      */
@@ -274,6 +302,7 @@ public final class TextUtils {
     }
 
     // ---------------------- 高级文本绘制（整合所有样式） ----------------------
+
     /**
      * 高级多行文本绘制：自动换行 + 背景/渐变 + 边框 + 圆角 + 阴影 + 对齐
      */

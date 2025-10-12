@@ -874,6 +874,21 @@ public class ImageCombiner {
         return target.getHeight();
     }
 
+    /**
+     * 设置当前绘图的笔画宽度
+     *
+     * @param width 笔画宽度（像素）
+     * @return 返回当前 ImageCombiner 实例，支持链式调用
+     */
+    public ImageCombiner setStroke(int width) {
+        g2.setStroke(new BasicStroke(width));
+        return this;
+    }
+
+    public Font getFont() {
+        return currentFont;
+    }
+
     public enum Align {
         LEFT, CENTER, RIGHT
     }
