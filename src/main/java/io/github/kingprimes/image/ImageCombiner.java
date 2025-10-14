@@ -844,6 +844,26 @@ public class ImageCombiner {
     }
 
     /**
+     * 获取指定字体的字体度量信息
+     *
+     * @param font 要获取度量信息的字体对象
+     * @return 返回指定字体的FontMetrics对象，包含字体的尺寸信息
+     */
+    public FontMetrics getFontMetrics(Font font) {
+        g2.setFont(font);
+        return g2.getFontMetrics();
+    }
+
+    /**
+     * 获取当前图形上下文的字体度量信息
+     *
+     * @return FontMetrics对象，包含当前字体的尺寸和布局信息
+     */
+    public FontMetrics getFontMetrics() {
+        return g2.getFontMetrics();
+    }
+
+    /**
      * 获取当前画布宽度
      *
      * @return 当前画布的宽度（像素）
@@ -914,6 +934,41 @@ public class ImageCombiner {
     public ImageCombiner drawImage(Image img, int x, int y,
                                    int width, int height) {
         g2.drawImage(img, x, y, width, height, null);
+        return this;
+    }
+
+
+    /**
+     * 在指定位置绘制图像，保持图像原始比例进行缩放
+     *
+     * @param img 要绘制的图像对象
+     *            * @param x      图像绘制的x坐标位置
+     *            * @param y      图像绘制的y坐标位置
+     *            * @param maxWidth  图像绘制的最大宽度
+     *            * @param maxHeight 图像绘制的最大高度
+     *            * @return 返回当前ImageCombiner实例，支持链式调用
+     */
+    public ImageCombiner drawImageWithAspectRatio(Image img, int x, int y, int maxWidth, int maxHeight) {
+        if (img == null) {
+            return this;
+        }
+
+        int imgWidth = img.getWidth(null);
+        int imgHeight = img.getHeight(null);
+
+        // 计算缩放比例
+        double scale = Math.min((double) maxWidth / imgWidth, (double) maxHeight / imgHeight);
+
+        // 计算缩放后的尺寸
+        int scaledWidth = (int) (imgWidth * scale);
+        int scaledHeight = (int) (imgHeight * scale);
+
+        // 居中放置
+        int drawX = x + (maxWidth - scaledWidth) / 2;
+        int drawY = y + (maxHeight - scaledHeight) / 2;
+
+        // 绘制图像
+        g2.drawImage(img, drawX, drawY, scaledWidth, scaledHeight, null);
         return this;
     }
 
