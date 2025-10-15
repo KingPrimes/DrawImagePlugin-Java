@@ -109,7 +109,7 @@ public class Invasion extends BastWorldState {
 
     /**
      * 获取进攻方阵营名称
-     * <p>{@link FactionEnum#getName()}</p>
+     * <p>{@link FactionEnum#name}</p>
      *
      * @return 进攻方阵营的显示名称 例如："Corpus"
      */
@@ -131,7 +131,7 @@ public class Invasion extends BastWorldState {
 
     /**
      * 获取防守方阵营名称
-     * <p>{@link FactionEnum#getName()}</p>
+     * <p>{@link FactionEnum#name}</p>
      *
      * @return 防守方阵营的显示名称 例如："Corpus"
      */

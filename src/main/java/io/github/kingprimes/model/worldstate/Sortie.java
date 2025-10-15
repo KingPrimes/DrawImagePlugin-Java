@@ -67,7 +67,7 @@ public class Sortie extends BastWorldState {
     /**
      * 获取Boss名称
      *
-     * @return Boss的显示名称 {@link BossEnum#getName()}
+     * @return Boss的显示名称 {@link BossEnum#name}
      */
     @JsonIgnore
     public String getBoss() {

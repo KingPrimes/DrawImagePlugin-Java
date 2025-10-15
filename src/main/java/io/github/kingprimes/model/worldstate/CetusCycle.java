@@ -66,11 +66,10 @@ public final class CetusCycle {
      * 获取当前CetusCycle
      *
      * @param bountiesEndDate <br/>
-     *                        <pro>
      *                        1. 获取{@link SyndicateMission#tag}中的{@link SyndicateEnum#CetusSyndicate} 数据<br/>
      *                        2. 获取{@link SyndicateMission#expiry}结束时间类<br/>
      *                        3. 获取{@link DateField#getEpochSecond()} 毫秒时间戳 为构造参数
-     *                        </pro>
+     *
      */
     public CetusCycle(Instant bountiesEndDate) {
         Instant now = Instant.now();

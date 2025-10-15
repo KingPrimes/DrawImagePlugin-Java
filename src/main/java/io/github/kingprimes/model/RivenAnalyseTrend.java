@@ -45,7 +45,7 @@ public class RivenAnalyseTrend {
      * 如果num不为null，则返回对应的 dot<br/>
      * 否则返回 {@link RivenTrendEnum#RIVEN_TREND_1}
      *
-     * @return {@link RivenTrendEnum#getDoc()}
+     * @return {@link RivenTrendEnum#doc}
      */
     public String getDot() {
         if (num != null) {

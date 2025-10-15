@@ -31,7 +31,7 @@ public class Mission {
     /**
      * 获取任务类型
      *
-     * @return 任务类型 {@link MissionTypeEnum#getName()} String字符串
+     * @return 任务类型 {@link MissionTypeEnum#name} String字符串
      */
     @JsonIgnore
     public String getMissionType(){

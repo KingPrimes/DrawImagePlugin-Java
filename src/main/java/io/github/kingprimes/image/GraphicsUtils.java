@@ -66,7 +66,7 @@ public final class GraphicsUtils {
      * @param target      目标缓冲图像，形状将被绘制在此图像上
      * @param shape       要绘制的形状对象
      * @param fillColor   填充颜色，如果为null则不填充
-     * @param strokeColor 描边颜色，如果为null或strokeWidth<=0则不描边
+     * @param strokeColor 描边颜色，如果为null或 strokeWidth &lt;= 0 则不描边
      * @param strokeWidth 描边宽度，必须大于0才生效
      */
     public static void drawShape(BufferedImage target, Shape shape, Color fillColor, Color strokeColor, int strokeWidth) {

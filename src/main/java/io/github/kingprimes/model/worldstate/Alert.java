@@ -40,6 +40,10 @@ public class Alert extends BastWorldState {
     @JsonProperty("MissionInfo")
     MissionInfo missionInfo;
 
+    /**
+     * 警报任务信息类
+     * <p>该类封装了警报任务的具体信息，包括任务地点、敌人类型、奖励等内容</p>
+     */
     @Data
     @Accessors(chain = true)
     public static class MissionInfo {
@@ -112,6 +116,10 @@ public class Alert extends BastWorldState {
         @JsonProperty("missionReward")
         Reward missionReward;
 
+        /**
+         * 任务奖励类
+         * <p>该类封装了完成警报任务后可获得的奖励信息</p>
+         */
         @Data
         @Accessors(chain = true)
         public static class Reward {

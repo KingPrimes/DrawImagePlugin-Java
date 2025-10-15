@@ -11,6 +11,10 @@ import java.util.Date;
 
 /**
  * 预测仲裁
+ * <p>该类表示一个仲裁任务的信息，包括任务时间、地点、敌人类型等信息</p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @NoArgsConstructor
 @Data
@@ -58,6 +62,12 @@ public class Arbitration {
     @JsonProperty("etc")
     private String etc;
 
+    /**
+     * 判断该仲裁任务是否值得参与
+     * <p>根据任务类型、节点和敌人类型来判断任务的价值</p>
+     *
+     * @return 如果任务值得参与返回true，否则返回false
+     */
     @JsonIgnore
     public Boolean isWorth() {
         boolean isType = type.contains("拦截") || type.contains("防御");

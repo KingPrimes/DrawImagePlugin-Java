@@ -36,7 +36,7 @@ public class VoidStorms extends BastWorldState {
     /**
      * 获取激活任务等级名称
      *
-     * @return 任务等级的显示名称 {@link VoidEnum#getName()}
+     * @return 任务等级的显示名称 {@link VoidEnum#name}
      */
     @JsonIgnore
     public String getActiveMissionTier() {

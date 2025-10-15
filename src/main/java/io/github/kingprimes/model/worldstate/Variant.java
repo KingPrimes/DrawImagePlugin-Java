@@ -44,7 +44,7 @@ public class Variant {
     /**
      * 获取任务类型名称
      *
-     * @return {@link MissionTypeEnum#getName()}
+     * @return {@link MissionTypeEnum#name}
      */
     @JsonIgnore
     public String getMissionType() {
@@ -54,7 +54,7 @@ public class Variant {
     /**
      * 获取状态类型名称
      *
-     * @return {@link ModifierTypeEnum#getStr()}
+     * @return {@link ModifierTypeEnum#str}
      */
     @JsonIgnore
     public String getModifierType() {

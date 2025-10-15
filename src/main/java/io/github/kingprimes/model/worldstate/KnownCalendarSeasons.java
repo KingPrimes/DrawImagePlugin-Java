@@ -313,6 +313,9 @@ public class KnownCalendarSeasons extends BastWorldState {
         /**
          * 挑战记录类
          * <p>包含挑战名称和挑战描述的记录类</p>
+         *
+         * @param name      名称
+         * @param challenge 挑战描述
          */
         public record Challenge(String name, String challenge) {
         }
@@ -320,6 +323,9 @@ public class KnownCalendarSeasons extends BastWorldState {
         /**
          * 升级记录类
          * <p>包含升级名称和升级描述的记录类</p>
+         *
+         * @param name    名称
+         * @param upgrade 升级描述
          */
         public record Upgrade(String name, String upgrade) {
         }

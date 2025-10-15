@@ -91,6 +91,13 @@ public final class LayerUtils {
 
     /**
      * 图层数据结构，包含图像数据、位置、透明度和混合模式等信息
+     *
+     * @param image     图层图像
+     * @param x         图层x坐标
+     * @param y         图层y坐标
+     * @param alpha     图层透明度
+     * @param composite 图层混合模式
      */
-    public record Layer(BufferedImage image, int x, int y, float alpha, Composite composite) {}
+    public record Layer(BufferedImage image, int x, int y, float alpha, Composite composite) {
+    }
 }

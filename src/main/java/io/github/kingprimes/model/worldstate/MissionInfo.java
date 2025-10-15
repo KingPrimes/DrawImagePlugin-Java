@@ -37,7 +37,7 @@ public class MissionInfo {
     /**
      * 获取任务阵营名称
      *
-     * @return {@link FactionEnum#getName()}
+     * @return {@link FactionEnum#name}
      */
     @JsonIgnore
     public String getFaction() {

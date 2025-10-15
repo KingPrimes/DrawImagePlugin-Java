@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 /**
  * 裂隙任务
  * <p>该类继承 {@link BastWorldState} 基类</p>
+ *
  * @author KingPrimes
  * @version 1.0.0
  */
@@ -53,7 +54,7 @@ public class ActiveMission extends BastWorldState {
     /**
      * 获取任务类型
      *
-     * <p>{@link MissionTypeEnum#getName()}</p>
+     * <p>{@link MissionTypeEnum#name}</p>
      *
      * @return 任务类型 String字符串
      */
@@ -66,7 +67,7 @@ public class ActiveMission extends BastWorldState {
     /**
      * 获取遗物等级
      *
-     * <p>{@link VoidEnum#getName()}</p>
+     * <p>{@link VoidEnum#name}</p>
      *
      * @return 遗物等级 String字符串
      */
