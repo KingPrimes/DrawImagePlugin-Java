@@ -1,4 +1,4 @@
-package io.github.kingprimes;
+package io.github.kingprimes.model;
 
 import io.github.kingprimes.model.enums.RivenTrendEnum;
 import lombok.Data;
@@ -7,7 +7,10 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * 紫卡分析
+ * 紫卡分析 结果
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)
@@ -37,6 +40,13 @@ public class RivenAnalyseTrend {
      */
     List<Attribute> attributes;
 
+    /**
+     * 获取倾向点<br/>
+     * 如果num不为null，则返回对应的 dot<br/>
+     * 否则返回 {@link RivenTrendEnum#RIVEN_TREND_1}
+     *
+     * @return {@link RivenTrendEnum#getDoc()}
+     */
     public String getDot() {
         if (num != null) {
             return RivenTrendEnum.getRivenTrendDot(num);

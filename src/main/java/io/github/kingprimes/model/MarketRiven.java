@@ -9,6 +9,9 @@ import java.util.List;
 
 /**
  * 查询市场的紫卡数据
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)

@@ -12,21 +12,58 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 已知日历季节
+ * <p>表示1999日历活动的季节信息，包含特定日期的挑战、奖励和升级事件</p>
+ * <p>该类继承 {@link BastWorldState} 基类</p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 public class KnownCalendarSeasons extends BastWorldState {
 
+    /**
+     * 日期事件列表
+     * <p>包含特定日期的事件信息，如挑战、奖励和升级</p>
+     */
     @JsonProperty("Days")
     private List<Days> days;
+
+    /**
+     * 季节枚举
+     * <p>表示当前季节，如秋季(CST_FALL)、夏季(CST_SUMMER)等</p>
+     */
     @JsonProperty("Season")
     private SeasonEnum season;
+
+    /**
+     * 年份迭代次数
+     * <p>表示这是第几次该季节循环</p>
+     */
     @JsonProperty("YearIteration")
     private Integer yearIteration;
+
+    /**
+     * 版本号
+     * <p>日历季节的版本标识</p>
+     */
     @JsonProperty("Version")
     private Integer version;
+
+    /**
+     * 升级可用性要求
+     * <p>升级功能可用的前提条件列表</p>
+     */
     @JsonProperty("UpgradeAvaliabilityRequirements")
     private List<String> upgradeAvaliabilityRequirements;
+
+    /**
+     * 每月天数映射
+     * <p>月份与天数的映射关系</p>
+     */
     @JsonProperty("MonthDays")
     private Map<?, ?> monthDays;
 
@@ -63,6 +100,11 @@ public class KnownCalendarSeasons extends BastWorldState {
                 .thenComparingInt(Days::getDay));
     }
 
+    /**
+     * 深拷贝当前对象
+     *
+     * @return 当前对象的深拷贝副本
+     */
     @JsonIgnore
     public KnownCalendarSeasons copy() {
         KnownCalendarSeasons copy = new KnownCalendarSeasons();
@@ -85,14 +127,28 @@ public class KnownCalendarSeasons extends BastWorldState {
         return copy;
     }
 
-    // conclaveChallenges
+    /**
+     * 日期事件类型枚举
+     * <p>定义日历中可能出现的事件类型</p>
+     */
     @Getter
     public enum DaysTypeEnum {
-        // 任务
+        /**
+         * 挑战任务类型
+         * <p>需要完成特定挑战任务</p>
+         */
         CET_CHALLENGE("任务"),
-        // 奖励
+
+        /**
+         * 奖励类型
+         * <p>完成条件后可获得奖励</p>
+         */
         CET_REWARD("奖励"),
-        // 加成
+
+        /**
+         * 加成类型
+         * <p>提供某种游戏加成效果</p>
+         */
         CET_UPGRADE("加成"),
         ;
         private final String displayName;
@@ -103,12 +159,35 @@ public class KnownCalendarSeasons extends BastWorldState {
 
     }
 
+    /**
+     * 季节枚举
+     * <p>定义一年中的四个季节</p>
+     */
     @Getter
     public enum SeasonEnum {
-        CST_FALL("秋季"),  // 秋季: 10-12月 (天数数组)
-        CST_SUMMER("夏季"),   // 夏季: 7-9月
-        CST_SPRING("春季"),   // 春季: 4-6月
-        CST_WINTER("冬季");   // 冬季: 1-3月
+        /**
+         * 秋季
+         * <p>通常对应10-12月</p>
+         */
+        CST_FALL("秋季"),
+
+        /**
+         * 夏季
+         * <p>通常对应7-9月</p>
+         */
+        CST_SUMMER("夏季"),
+
+        /**
+         * 春季
+         * <p>通常对应4-6月</p>
+         */
+        CST_SPRING("春季"),
+
+        /**
+         * 冬季
+         * <p>通常对应1-3月</p>
+         */
+        CST_WINTER("冬季");
 
         private final String name;
 
@@ -117,16 +196,39 @@ public class KnownCalendarSeasons extends BastWorldState {
         }
     }
 
+    /**
+     * 日期类
+     * <p>表示特定日期及其包含的事件</p>
+     */
     @Data
     @Accessors(chain = true)
     public static class Days {
+        /**
+         * 日期
+         * <p>在季节中的第几天(从1开始计算)</p>
+         */
         @JsonProperty("day")
         private Integer day;
+
+        /**
+         * 事件列表
+         * <p>在该日期发生的事件列表</p>
+         */
         @JsonProperty("events")
         private List<Events> events;
+
+        /**
+         * 月份
+         * <p>自然月份(1-12)</p>
+         */
         @JsonProperty("month")
         private Integer month;
 
+        /**
+         * 深拷贝当前对象
+         *
+         * @return 当前对象的深拷贝副本
+         */
         @JsonIgnore
         public Days copy() {
             Days copy = new Days();
@@ -144,24 +246,60 @@ public class KnownCalendarSeasons extends BastWorldState {
         }
     }
 
+    /**
+     * 事件类
+     * <p>表示日历中的具体事件</p>
+     */
     @Data
     @Accessors(chain = true)
     public static class Events {
+        /**
+         * 事件类型
+         * <p>事件的类型，如挑战(CET_CHALLENGE)、奖励(CET_REWARD)或加成(CET_UPGRADE)</p>
+         */
         @JsonProperty("type")
         private DaysTypeEnum type;
+
+        /**
+         * 奖励
+         * <p>事件提供的奖励物品路径</p>
+         */
         @JsonProperty("reward")
         private String reward;
+
+        /**
+         * 挑战
+         * <p>需要完成的挑战任务路径</p>
+         */
         @JsonProperty("challenge")
         private String challenge;
 
+        /**
+         * 挑战信息
+         * <p>挑战的详细信息</p>
+         */
         @JsonProperty("challengeInfo")
         private Challenge challengeInfo;
+
+        /**
+         * 升级信息
+         * <p>升级效果的详细信息</p>
+         */
         @JsonProperty("upgradeInfo")
         private Upgrade upgradeInfo;
 
+        /**
+         * 升级
+         * <p>提供的升级效果路径</p>
+         */
         @JsonProperty("upgrade")
         private String upgrade;
 
+        /**
+         * 深拷贝当前对象
+         *
+         * @return 当前对象的深拷贝副本
+         */
         @JsonIgnore
         public Events copy() {
             Events copy = new Events();
@@ -172,9 +310,17 @@ public class KnownCalendarSeasons extends BastWorldState {
             return copy;
         }
 
+        /**
+         * 挑战记录类
+         * <p>包含挑战名称和挑战描述的记录类</p>
+         */
         public record Challenge(String name, String challenge) {
         }
 
+        /**
+         * 升级记录类
+         * <p>包含升级名称和升级描述的记录类</p>
+         */
         public record Upgrade(String name, String upgrade) {
         }
 

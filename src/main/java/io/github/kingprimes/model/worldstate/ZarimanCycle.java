@@ -1,35 +1,59 @@
 package io.github.kingprimes.model.worldstate;
 
+import io.github.kingprimes.model.enums.SyndicateEnum;
 import io.github.kingprimes.utils.TimeUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
 
 import java.time.Instant;
 
 /**
- * 扎的曼轮换
+ * 扎的曼
+ *
+ * <p>此循环计算方式来自 <a href="https://github.com/WFCD/warframe-worldstate-parser">warframe-worldstate-parser</a></p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
-@Data
-@Accessors(chain = true)
-public class ZarimanCycle {
+@Getter
+public final class ZarimanCycle {
 
     private static final long CORPUS_TIME_MILLIS = 1655182800000L; // Corpus 起始时间（毫秒）
     private static final long FULL_CYCLE = 18000000; // 完整周期时长（毫秒）
     private static final long STATE_MAXIMUM = 9000000; // 每个阶段最大持续时间（毫秒）
 
-
-    private Instant activation;
-    private Instant expiry;
-    private boolean isCorpus;
-    private String state;
-    private String timeLeft;
-    private String id;
-    private boolean expired;
+    /**
+     * 开始时间
+     */
+    private final Instant activation;
+    /**
+     * 结束时间
+     */
+    private final Instant expiry;
+    /**
+     * 当前派系是否为Corpus
+     */
+    private final boolean isCorpus;
+    /**
+     * 当前状态 Grineer/Corpus
+     */
+    private final String state;
+    /**
+     * 剩余时间
+     */
+    private final String timeLeft;
+    /**
+     * 是否已结束
+     */
+    private final boolean expired;
 
     /**
-     * 构造函数，同时执行 getCurrentZarimanCycle 的逻辑
+     * 构造 扎的曼 信息
      *
-     * @param bountiesEndDate 当前 Zariman Bounty 的结束时间
+     * @param bountiesEndDate <br/><pro>
+     *                        1. 获取{@link SyndicateMission#tag}中的{@link SyndicateEnum#ZarimanSyndicate} 数据<br/>
+     *                        2. 获取{@link SyndicateMission#expiry} 结束时间类<br/>
+     *                        3. 获取{@link DateField#getEpochSecond()} 毫秒时间戳 为构造参数<br/>
+     *                        </pro>
      */
     public ZarimanCycle(Instant bountiesEndDate) {
         long now = System.currentTimeMillis();

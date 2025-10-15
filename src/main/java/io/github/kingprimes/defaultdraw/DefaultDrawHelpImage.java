@@ -11,11 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class DefaultDrawHelpImage {
+/**
+ * 默认菜单图片绘制工具类
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
+public final class DefaultDrawHelpImage {
 
     private static final Pattern PIPE_PATTERN = Pattern.compile("\\|");
 
-
+    /**
+     * 根据提供的帮助信息列表生成一张帮助图片，并以字节数组形式返回。
+     *
+     * @param helpInfo 包含菜单指令条目的字符串列表
+     * @return 生成的帮助图片的 PNG 格式字节数组。
+     */
     public static byte[] drawHelpImage(List<String> helpInfo) {
         final int WIDTH = 1200;
         final int MARGIN = 40;

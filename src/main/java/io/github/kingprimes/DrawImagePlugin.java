@@ -9,6 +9,12 @@ import io.github.kingprimes.model.worldstate.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 绘图接口，实现类必须实现除default标记的所有方法
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @SuppressWarnings("unused")
 public interface DrawImagePlugin {
 
@@ -75,10 +81,10 @@ public interface DrawImagePlugin {
     /**
      * 绘制双衍王境图像
      *
-     * @param duviriCycle 双衍王境循环数据
+     * @param duvalierCycle 双衍王境循环数据
      * @return 图像流
      */
-    byte[] drawDuviriCycleImage(DuviriCycle duviriCycle);
+    byte[] drawDuviriCycleImage(DuvalierCycle duvalierCycle);
 
     /**
      * 绘制裂隙图像

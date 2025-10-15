@@ -2,32 +2,60 @@ package io.github.kingprimes.model.worldstate;
 
 
 import io.github.kingprimes.utils.TimeUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 /**
- * 地球循环
+ * 地球昼夜循环
+ * <p>此循环计算方式来自 <a href="https://github.com/WFCD/warframe-worldstate-parser">warframe-worldstate-parser</a></p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
-@Data
-@Accessors(chain = true)
-public class EarthCycle {
+@Setter(AccessLevel.NONE)
+@Getter
+public final class EarthCycle {
 
     // 常量定义
     private static final long CYCLE_SECONDS = 28800; // 地球周期总时长（秒）
     private static final long DAYTIME_LIMIT = 14400; // 白天最大持续时间（秒）
 
     // 成员变量
+    /**
+     * 当前状态 开始时间
+     */
     private Instant activation;
+    /**
+     * 当前状态 结束时间
+     */
     private Instant expiry;
+    /**
+     * 当前状态 是否为白昼
+     */
     private boolean isDay;
+    /**
+     * 当前状态 白昼/夜晚
+     */
     private String state;
+    /**
+     * 剩余时间
+     */
     private String timeLeft;
+    /**
+     * 圆整时间
+     */
     private Instant rounded;
+    /**
+     * 循环开始时间
+     */
     private Instant start;
-    private String id;
+    /**
+     * 循环是否已结束
+     */
     private boolean expired;
 
 

@@ -4,9 +4,18 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * Graphics绘制工具类
+ * <p>提供一系列工具方法，用于处理Graphics2D对象，如配置高质量渲染参数、创建圆角矩形边框图片、创建渐变背景图片等</p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
+
 @SuppressWarnings("unused")
 public final class GraphicsUtils {
-    private GraphicsUtils() {}
+    private GraphicsUtils() {
+    }
 
     /**
      * 为Graphics2D对象配置高质量渲染参数，优化图像绘制和文本显示效果
@@ -37,7 +46,7 @@ public final class GraphicsUtils {
      * <p>实现原理：创建与原始图片尺寸一致的透明图像，使用{@link RoundRectangle2D.Float}定义圆角裁剪区域，
      * 并通过高质量渲染参数确保圆角边缘平滑无锯齿</p>
      *
-     * @param image 原始图片对象（待处理的BufferedImage）
+     * @param image        原始图片对象（待处理的BufferedImage）
      * @param cornerRadius 圆角半径（像素），控制圆角的弯曲程度，值越大圆角越圆润
      * @return 带圆角边框的新BufferedImage对象，尺寸与原始图片一致，格式为TYPE_INT_ARGB，背景透明
      */
@@ -52,7 +61,13 @@ public final class GraphicsUtils {
     }
 
     /**
-     * 在图片上绘制形状
+     * 在目标图像上绘制指定的形状
+     *
+     * @param target      目标缓冲图像，形状将被绘制在此图像上
+     * @param shape       要绘制的形状对象
+     * @param fillColor   填充颜色，如果为null则不填充
+     * @param strokeColor 描边颜色，如果为null或strokeWidth<=0则不描边
+     * @param strokeWidth 描边宽度，必须大于0才生效
      */
     public static void drawShape(BufferedImage target, Shape shape, Color fillColor, Color strokeColor, int strokeWidth) {
         Graphics2D g2 = target.createGraphics();
@@ -78,11 +93,11 @@ public final class GraphicsUtils {
      *   <li>当{@code vertical=false}时：从左到右水平渐变（起点(0,0)到终点(width,0)）</li>
      * </ul>
      *
-     * @param width 背景图片宽度（像素）
-     * @param height 背景图片高度（像素）
+     * @param width      背景图片宽度（像素）
+     * @param height     背景图片高度（像素）
      * @param startColor 渐变起始颜色（渐变开始位置的颜色）
-     * @param endColor 渐变结束颜色（渐变终止位置的颜色）
-     * @param vertical 渐变方向标识：true表示垂直渐变，false表示水平渐变
+     * @param endColor   渐变结束颜色（渐变终止位置的颜色）
+     * @param vertical   渐变方向标识：true表示垂直渐变，false表示水平渐变
      * @return 带渐变背景的新BufferedImage对象，格式为TYPE_INT_ARGB，尺寸与输入宽高一致
      */
     public static BufferedImage createGradientBackground(int width, int height, Color startColor, Color endColor, boolean vertical) {

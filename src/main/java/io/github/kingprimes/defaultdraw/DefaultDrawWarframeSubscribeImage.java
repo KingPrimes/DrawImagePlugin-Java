@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 默认订阅图片绘制工具类
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 public class DefaultDrawWarframeSubscribeImage {
 
     static final int WIDTH = 1300;
@@ -26,6 +32,15 @@ public class DefaultDrawWarframeSubscribeImage {
     static final Font mainFont = Fonts.FONT_TEXT;
     static final int TEXT_LINE_HEIGHT = mainFont.getSize();
 
+    /**
+     * <p>绘制 Warframe 订阅指令说明图片。</p>
+     * 该方法根据传入的订阅内容类型和任务类型映射关系，生成一张包含使用说明、示例、注意事项及数值对照表的图片。
+     * 图片中包含标题、使用方式、示例指令、注意事项、订阅类型与任务类型的数值表，并在右下角添加背景图和署名。
+     *
+     * @param subscribe   订阅内容类型映射，键为类型编号，值为类型名称
+     * @param missionType 任务类型映射，键为类型编号，值为类型名称
+     * @return 生成的图片字节数组，格式为 PNG
+     */
     public static byte[] drawWarframeSubscribeImage(Map<Integer, String> subscribe, Map<Integer, String> missionType) {
         // 创建画布
         ImageCombiner combiner = new ImageCombiner(WIDTH, HEIGHT, ImageCombiner.OutputFormat.PNG);

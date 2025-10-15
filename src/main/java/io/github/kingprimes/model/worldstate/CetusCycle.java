@@ -1,39 +1,76 @@
 package io.github.kingprimes.model.worldstate;
 
+import io.github.kingprimes.model.enums.SyndicateEnum;
 import io.github.kingprimes.utils.TimeUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 夜灵平原
- */
-@Data
-@Accessors(chain = true)
-public class CetusCycle {
-    private static final long NIGHT_TIME = 3000; // 夜晚持续时间（秒）
+
+@Setter(AccessLevel.NONE)
+@Getter
+public final class CetusCycle {
+    /**
+     * 白昼持续时间（秒）
+     */
+    private static final long NIGHT_TIME = 3000;
+
+    /**
+     * 白昼/夜晚 最大持续时间（毫秒）
+     */
     private static final Map<String, Long> MAXIMUMS = new HashMap<>();
 
     static {
-        MAXIMUMS.put("白昼", 6000000L); // 白天最大持续时间（毫秒）
-        MAXIMUMS.put("夜晚", 3000000L); // 夜晚最大持续时间（毫秒）
+        /*
+          白天最大持续时间（毫秒）
+         */
+        MAXIMUMS.put("白昼", 6000000L);
+        /*
+          夜晚最大持续时间（毫秒）
+         */
+        MAXIMUMS.put("夜晚", 3000000L);
     }
 
+    /**
+     * 当前时间是否是白昼
+     */
     Boolean isDay;
+    /**
+     * 当前状态结束时间
+     */
     Instant expiry;
+    /**
+     * 当前状态开始时间
+     */
     Instant activation;
+    /**
+     * 白昼/夜晚
+     */
     String state;
+    /**
+     * day/night
+     */
     String cycle;
+
+    /**
+     * 剩余时间
+     */
     String timeLeft;
 
     /**
      * 获取当前CetusCycle
      *
-     * @param bountiesEndDate SyndicateMissions.Tag为 CetusSyndicate 的 Expiry 中的数据
+     * @param bountiesEndDate <br/>
+     *                        <pro>
+     *                        1. 获取{@link SyndicateMission#tag}中的{@link SyndicateEnum#CetusSyndicate} 数据<br/>
+     *                        2. 获取{@link SyndicateMission#expiry}结束时间类<br/>
+     *                        3. 获取{@link DateField#getEpochSecond()} 毫秒时间戳 为构造参数
+     *                        </pro>
      */
     public CetusCycle(Instant bountiesEndDate) {
         Instant now = Instant.now();
@@ -50,12 +87,12 @@ public class CetusCycle {
         String state = dayTime ? "白昼" : "夜晚";
         String cycle = dayTime ? "day" : "night";
 
-        this.setActivation(expiry.minusMillis(MAXIMUMS.get(state)));
-        this.setExpiry(expiry);
-        this.setIsDay(dayTime);
-        this.setState(state);
-        this.setCycle(cycle);
-        this.setTimeLeft(TimeUtils.timeDeltaToString(millisLeft));
+        this.activation = expiry.minusMillis(MAXIMUMS.get(state));
+        this.expiry = expiry;
+        this.isDay = dayTime;
+        this.state = state;
+        this.cycle = cycle;
+        this.timeLeft = TimeUtils.timeDeltaToString(millisLeft);
     }
 
 }

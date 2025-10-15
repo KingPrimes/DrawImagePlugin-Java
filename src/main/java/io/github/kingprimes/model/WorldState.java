@@ -1,45 +1,14 @@
 package io.github.kingprimes.model;
 
-import java.time.Instant;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.github.kingprimes.model.enums.SyndicateEnum;
-import io.github.kingprimes.model.worldstate.ActiveMission;
-import io.github.kingprimes.model.worldstate.Alert;
-import io.github.kingprimes.model.worldstate.CambionCycle;
-import io.github.kingprimes.model.worldstate.CetusCycle;
-import io.github.kingprimes.model.worldstate.ConstructionProjects;
-import io.github.kingprimes.model.worldstate.DailyDeals;
-import io.github.kingprimes.model.worldstate.DuviriCycle;
-import io.github.kingprimes.model.worldstate.EarthCycle;
-import io.github.kingprimes.model.worldstate.EndlessXpChoices;
-import io.github.kingprimes.model.worldstate.Event;
-import io.github.kingprimes.model.worldstate.ExperimentRecommended;
-import io.github.kingprimes.model.worldstate.FeaturedGuilds;
-import io.github.kingprimes.model.worldstate.FlashSale;
-import io.github.kingprimes.model.worldstate.GlobalUpgrade;
-import io.github.kingprimes.model.worldstate.Goal;
-import io.github.kingprimes.model.worldstate.HubEvents;
-import io.github.kingprimes.model.worldstate.InGameMarket;
-import io.github.kingprimes.model.worldstate.Invasion;
-import io.github.kingprimes.model.worldstate.KnownCalendarSeasons;
-import io.github.kingprimes.model.worldstate.LibraryInfo;
-import io.github.kingprimes.model.worldstate.LiteSorite;
-import io.github.kingprimes.model.worldstate.NodeOverride;
-import io.github.kingprimes.model.worldstate.PrimeVaultTrader;
-import io.github.kingprimes.model.worldstate.SeasonInfo;
-import io.github.kingprimes.model.worldstate.Sortie;
-import io.github.kingprimes.model.worldstate.SteelPathOffering;
-import io.github.kingprimes.model.worldstate.SyndicateMission;
-import io.github.kingprimes.model.worldstate.VallisCycle;
-import io.github.kingprimes.model.worldstate.VoidStorms;
-import io.github.kingprimes.model.worldstate.VoidTrader;
-import io.github.kingprimes.model.worldstate.ZarimanCycle;
+import io.github.kingprimes.model.worldstate.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.time.Instant;
+import java.util.List;
 
 @SuppressWarnings("unused")
 @Data
@@ -80,13 +49,13 @@ public class WorldState {
     List<EndlessXpChoices> endlessXpChoices;
 
     // 双衍王境 轮换
-    DuviriCycle duviriCycle;
+    DuvalierCycle duvalierCycle;
 
     // 新闻
     @JsonProperty("Events")
     List<Event> events;
 
-    //
+
     @JsonProperty("ExperimentRecommended")
     List<ExperimentRecommended> experimentRecommended;
 
@@ -204,8 +173,8 @@ public class WorldState {
         return new VallisCycle();
     }
     @JsonIgnore
-    public DuviriCycle getDuviriCycle() {
-        return new DuviriCycle(this.getEndlessXpChoices());
+    public DuvalierCycle getDuvalierCycle() {
+        return new DuvalierCycle(this.getEndlessXpChoices());
     }
     @JsonIgnore
     public ZarimanCycle getZarimanCycle() {

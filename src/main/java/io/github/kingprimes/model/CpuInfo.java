@@ -5,6 +5,9 @@ import lombok.experimental.Accessors;
 
 /**
  * CPU 信息
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)

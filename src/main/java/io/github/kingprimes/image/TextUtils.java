@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 文字处理工具类（静态工具方法，无状态）
+ * 文字处理工具类
+ * <p>提供静态工具方法，用于处理文本相关的功能，如自动换行、居中计算、高度计算等</p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @SuppressWarnings("unused")
 public final class TextUtils {
@@ -63,6 +67,12 @@ public final class TextUtils {
 
     /**
      * 计算单行文字完全居中（X、Y轴）的坐标
+     *
+     * @param metrics      字体度量信息，用于获取文字尺寸信息
+     * @param text         要居中的文字内容
+     * @param canvasWidth  画布宽度，用于X轴居中计算
+     * @param canvasHeight 画布高度，用于Y轴居中计算
+     * @return 返回文字居中时的坐标点，X为横向居中位置，Y为纵向居中位置（考虑文字基线）
      */
     public static Point calculateCenterXY(FontMetrics metrics, String text, int canvasWidth, int canvasHeight) {
         if (metrics == null || text == null) return new Point(0, 0);
@@ -74,6 +84,14 @@ public final class TextUtils {
 
     /**
      * 计算单行文字完全居中（X、Y轴）的坐标（带偏移量）
+     *
+     * @param metrics      字体度量信息，用于计算文字尺寸
+     * @param text         要居中的文本内容
+     * @param canvasWidth  画布宽度
+     * @param canvasHeight 画布高度
+     * @param xOffset      X轴偏移量
+     * @param yOffset      Y轴偏移量
+     * @return 返回带有偏移量的居中坐标点
      */
     public static Point calculateCenterXY(FontMetrics metrics, String text, int canvasWidth, int canvasHeight, int xOffset, int yOffset) {
         Point center = calculateCenterXY(metrics, text, canvasWidth, canvasHeight);
@@ -83,7 +101,12 @@ public final class TextUtils {
     // ---------------------- 自动换行 ----------------------
 
     /**
-     * 根据最大宽度自动拆分文本（按空格分割）
+     * 根据指定的最大宽度对文本进行自动换行处理
+     *
+     * @param metrics  字体度量信息，用于计算文本宽度
+     * @param text     需要换行处理的文本内容
+     * @param maxWidth 每行文本的最大宽度限制
+     * @return 按照宽度限制换行后的文本行数组
      */
     public static String[] wrapText(FontMetrics metrics, String text, int maxWidth) {
         List<String> lines = new ArrayList<>();
@@ -121,6 +144,11 @@ public final class TextUtils {
 
     /**
      * 计算多行文本总高度（含行间距）
+     *
+     * @param metrics 字体度量信息，用于获取单行文本高度
+     * @param lines   文本行数组，每行文本内容
+     * @param spacing 行间距，相邻两行之间的垂直距离
+     * @return 多行文本的总高度，包括所有行的高度和行间距的总和
      */
     public static int calculateMultilineHeight(FontMetrics metrics, String[] lines, int spacing) {
         if (metrics == null || lines == null || lines.length == 0) return 0;
@@ -132,6 +160,17 @@ public final class TextUtils {
 
     /**
      * 绘制带背景框的单行文本
+     *
+     * @param g2           Graphics2D对象，用于绘制操作
+     * @param font         文本字体，如果为null则使用Graphics2D当前字体
+     * @param textColor    文本颜色，如果为null则使用黑色
+     * @param text         要绘制的文本内容
+     * @param x            文本绘制的x坐标位置
+     * @param y            文本绘制的y坐标位置（基线位置）
+     * @param bgColor      背景颜色，如果为null则不绘制背景
+     * @param borderColor  边框颜色，如果为null则不绘制边框
+     * @param cornerRadius 背景和边框的圆角半径
+     * @param padding      背景与文本之间的内边距
      */
     public static void drawTextWithBackground(Graphics2D g2, Font font, Color textColor,
                                               String text, int x, int y,
@@ -175,6 +214,17 @@ public final class TextUtils {
 
     /**
      * 绘制带背景框的多行文本
+     *
+     * @param g2           Graphics2D对象，用于绘制操作
+     * @param font         文本字体，如果为null则使用Graphics2D当前字体
+     * @param textColor    文本颜色，如果为null则默认使用黑色
+     * @param text         要绘制的文本内容，支持换行符分隔多行
+     * @param x            文本起始绘制位置的x坐标（左上角）
+     * @param y            文本起始绘制位置的y坐标（基线位置）
+     * @param bgColor      背景颜色，如果为null则不绘制背景
+     * @param borderColor  边框颜色，如果为null则不绘制边框
+     * @param cornerRadius 背景和边框的圆角半径
+     * @param padding      文本与背景框之间的内边距
      */
     public static void drawMultilineTextWithBackground(Graphics2D g2, Font font, Color textColor,
                                                        String text, int x, int y,
@@ -229,6 +279,19 @@ public final class TextUtils {
 
     /**
      * 绘制带渐变背景框的多行文本
+     *
+     * @param g2                 Graphics2D对象，用于绘制操作
+     * @param font               文本字体，如果为null则使用Graphics2D当前字体
+     * @param textColor          文本颜色，如果为null则使用黑色
+     * @param text               要绘制的文本内容，支持换行符分隔多行
+     * @param x                  文本绘制起始x坐标
+     * @param y                  文本绘制起始y坐标（基准线）
+     * @param startColor         渐变起始颜色
+     * @param endColor           渐变结束颜色
+     * @param isVerticalGradient true表示垂直渐变，false表示水平渐变
+     * @param borderColor        边框颜色，如果为null则不绘制边框
+     * @param cornerRadius       背景矩形圆角半径
+     * @param padding            文本与背景框的内边距
      */
     public static void drawMultilineTextWithGradientBackground(Graphics2D g2, Font font, Color textColor,
                                                                String text, int x, int y,
@@ -286,6 +349,16 @@ public final class TextUtils {
 
     /**
      * 绘制带阴影的文字
+     *
+     * @param g2            Graphics2D对象，用于绘制操作
+     * @param font          文字字体，可为null
+     * @param textColor     文字颜色，不可为null
+     * @param shadowColor   阴影颜色，不可为null
+     * @param text          要绘制的文本内容，不可为null
+     * @param x             文字绘制的x坐标
+     * @param y             文字绘制的y坐标
+     * @param shadowOffsetX 阴影在x轴的偏移量
+     * @param shadowOffsetY 阴影在y轴的偏移量
      */
     public static void drawTextWithShadow(Graphics2D g2, Font font, Color textColor, Color shadowColor,
                                           String text, int x, int y, int shadowOffsetX, int shadowOffsetY) {
@@ -305,6 +378,26 @@ public final class TextUtils {
 
     /**
      * 高级多行文本绘制：自动换行 + 背景/渐变 + 边框 + 圆角 + 阴影 + 对齐
+     *
+     * @param g2                 Graphics2D对象，用于绘图操作
+     * @param font               字体，若为null则使用Graphics2D当前字体
+     * @param textColor          文字颜色，若为null默认黑色
+     * @param text               待绘制的文本内容
+     * @param maxWidth           单行最大宽度，超过将自动换行
+     * @param canvasWidth        画布宽度，用于计算对齐和布局
+     * @param canvasHeight       画布高度，用于垂直居中等布局计算
+     * @param align              水平对齐方式（LEFT/CENTER/RIGHT）
+     * @param isVerticalCenter   是否垂直居中显示文本区域
+     * @param bgColor            背景颜色，若为null且无渐变则不绘制背景
+     * @param gradientStart      渐变起始颜色，与gradientEnd同时非空时启用渐变背景
+     * @param gradientEnd        渐变结束颜色
+     * @param isVerticalGradient true表示纵向渐变，false表示横向渐变
+     * @param borderColor        边框颜色，若为null则不绘制边框
+     * @param cornerRadius       背景及边框圆角半径
+     * @param padding            内边距（文本与背景边缘的距离）
+     * @param shadowColor        阴影颜色，若为null则不绘制阴影
+     * @param shadowOffsetX      阴影在X轴上的偏移量
+     * @param shadowOffsetY      阴影在Y轴上的偏移量
      */
     public static void drawAdvancedText(Graphics2D g2, Font font, Color textColor,
                                         String text, int maxWidth, int canvasWidth, int canvasHeight,

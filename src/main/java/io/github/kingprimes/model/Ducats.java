@@ -9,6 +9,9 @@ import java.util.Map;
 
 /**
  * Market 市场 杜卡币数据
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)

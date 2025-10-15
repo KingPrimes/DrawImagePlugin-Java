@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 
 /**
  * 图片变换工具类（静态工具方法，无状态）
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @SuppressWarnings("unused")
 public final class TransformUtils {
@@ -14,8 +17,8 @@ public final class TransformUtils {
     /**
      * 将指定的BufferedImage缩放到目标宽度和高度，使用高质量渲染模式以保证缩放效果
      *
-     * @param image 原始图片对象（待缩放的BufferedImage）
-     * @param newWidth 缩放后的目标宽度（像素）
+     * @param image     原始图片对象（待缩放的BufferedImage）
+     * @param newWidth  缩放后的目标宽度（像素）
      * @param newHeight 缩放后的目标高度（像素）
      * @return 缩放后的新BufferedImage对象，格式为TYPE_INT_ARGB
      */
@@ -32,7 +35,7 @@ public final class TransformUtils {
      * 将指定图片按给定角度旋转，并返回旋转后的新图片对象
      * <p>旋转围绕图片中心点进行，使用高质量渲染模式保证图像清晰度</p>
      *
-     * @param image 原始图片对象（待旋转的BufferedImage）
+     * @param image          原始图片对象（待旋转的BufferedImage）
      * @param angleInDegrees 旋转角度（单位：度），正值表示顺时针旋转，负值表示逆时针旋转
      * @return 旋转后的新BufferedImage对象，尺寸与原始图片一致，格式为TYPE_INT_ARGB
      */
@@ -52,10 +55,10 @@ public final class TransformUtils {
     /**
      * 裁剪图片指定区域，返回新的BufferedImage对象
      *
-     * @param image 原始图片对象（待裁剪的BufferedImage）
-     * @param x 裁剪区域的起始横坐标（像素）
-     * @param y 裁剪区域的起始纵坐标（像素）
-     * @param width 裁剪区域的宽度（像素）
+     * @param image  原始图片对象（待裁剪的BufferedImage）
+     * @param x      裁剪区域的起始横坐标（像素）
+     * @param y      裁剪区域的起始纵坐标（像素）
+     * @param width  裁剪区域的宽度（像素）
      * @param height 裁剪区域的高度（像素）
      * @return 裁剪后的新BufferedImage对象
      */

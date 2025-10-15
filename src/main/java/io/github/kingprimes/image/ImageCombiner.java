@@ -9,6 +9,9 @@ import java.io.IOException;
 /**
  * 图片绘制组合器（建造者模式实现）
  * <p>核心职责：提供一站式图像构建能力，整合画布管理、基础图形绘制、文本处理（委托给{@link TextUtils}）、样式预设及最终图像输出流程</p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @SuppressWarnings("unused")
 public class ImageCombiner {
@@ -24,7 +27,7 @@ public class ImageCombiner {
     /**
      * 图像输出格式，决定最终生成图像类型（PNG/JPG）及透明度支持（PNG支持透明，JPG不支持）
      */
-    protected final OutputFormat format; //
+    protected final OutputFormat format;
     /**
      * 合并后图像的字节流缓存，需调用{@link #combine()}后才能通过{@link #getCombinedImageOutStream()}获取
      */
@@ -892,6 +895,11 @@ public class ImageCombiner {
         return this;
     }
 
+    /**
+     * 获取当前字体对象
+     *
+     * @return 返回当前设置的字体对象
+     */
     public Font getFont() {
         return currentFont;
     }
@@ -972,11 +980,35 @@ public class ImageCombiner {
         return this;
     }
 
+    /**
+     * 文本对齐方式
+     */
     public enum Align {
-        LEFT, CENTER, RIGHT
+        /**
+         * 文本左对齐
+         */
+        LEFT,
+        /**
+         * 文本居中对齐
+         */
+        CENTER,
+        /**
+         * 文本右对齐
+         */
+        RIGHT
     }
 
+    /**
+     * 图片输出格式
+     */
     public enum OutputFormat {
-        PNG, JPG
+        /**
+         * PNG格式
+         */
+        PNG,
+        /**
+         * JPG格式
+         */
+        JPG
     }
 }

@@ -4,8 +4,13 @@ import io.github.kingprimes.model.enums.RarityEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
- * 遗物
+ * 遗物查询结果模型
+ *
+ * @author KingPriems
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)
@@ -14,6 +19,11 @@ public class Relics {
      * 遗物名称
      */
     String name;
+
+    /**
+     * 遗物奖励列表
+     */
+    List<Rewards> rewards;
 
     @Data
     @Accessors(chain = true)

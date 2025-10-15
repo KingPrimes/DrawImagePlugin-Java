@@ -4,6 +4,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+/**
+ * 图片拼接工具类
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
+
 @SuppressWarnings("unused")
 public final class CombineUtils {
     private CombineUtils() {}

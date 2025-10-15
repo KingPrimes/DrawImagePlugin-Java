@@ -3,7 +3,6 @@ package io.github.kingprimes.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.kingprimes.model.enums.WarframeMissionTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -61,7 +60,7 @@ public class Arbitration {
 
     @JsonIgnore
     public Boolean isWorth() {
-        boolean isType = type.contains(WarframeMissionTypeEnum.Interception.get()) || type.contains(WarframeMissionTypeEnum.Defense.get());
+        boolean isType = type.contains("拦截") || type.contains("防御");
         boolean isNode = node.contains("谷神星") || node.contains("水星");
         boolean isEnemy = enemy.contains("Grin") || enemy.contains("Infest");
         return isType && isNode && isEnemy;

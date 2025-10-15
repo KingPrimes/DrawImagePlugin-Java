@@ -7,11 +7,17 @@ import java.util.List;
 
 /**
  * 系统盘符信息
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)
 public class SysFileInfos {
 
+    /**
+     * 盘符列表
+     */
     List<SysFileInfo> sysFileInfos;
 
     @Data

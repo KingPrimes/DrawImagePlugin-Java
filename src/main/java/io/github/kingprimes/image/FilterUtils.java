@@ -5,6 +5,18 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 
+/**
+ * 图片滤镜工具类
+ * <p>提供图片滤镜处理工具，包括：</p>
+ * <ul>
+ *     <li>grayScale：将彩色图片转换为灰度图像</li>
+ *     <li>sharpen：对图片应用锐化滤镜效果</li>
+ *     <li>gaussianBlur：对图片应用高斯模糊滤镜效果</li>
+ * </ul>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @SuppressWarnings("unused")
 public final class FilterUtils {
     private FilterUtils() {
@@ -43,7 +55,6 @@ public final class FilterUtils {
      * [0, -1, 0]
      * </pre>
      * 使用Java图像处理API的ConvolveOp执行卷积操作，保留原始图像尺寸和透明度通道
-     * </p>
      *
      * @param image 原始图片对象（待锐化的BufferedImage）
      * @return 锐化处理后的新BufferedImage对象，尺寸与原始图片一致，格式为TYPE_INT_ARGB
@@ -69,7 +80,7 @@ public final class FilterUtils {
      *   <li>通过{@link #createGaussianKernel(int, int)}生成符合高斯分布的权重核</li>
      * </ul>
      *
-     * @param image 原始图片对象（待模糊的BufferedImage）
+     * @param image  原始图片对象（待模糊的BufferedImage）
      * @param radius 模糊半径（像素），控制模糊强度，需为非负整数（建议取值范围1-10，过大会显著增加计算耗时）
      * @return 模糊处理后的新BufferedImage对象，尺寸与原始图片一致，格式为TYPE_INT_ARGB；若输入半径无效则返回原始图片
      */

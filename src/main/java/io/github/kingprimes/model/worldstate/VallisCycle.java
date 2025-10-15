@@ -1,18 +1,21 @@
 package io.github.kingprimes.model.worldstate;
 
 import io.github.kingprimes.utils.TimeUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 /**
- * 奥布山谷 轮换
+ * 奥布山谷
+ *
+ * <p>此循环计算方式来自 <a href="https://github.com/WFCD/warframe-worldstate-parser">warframe-worldstate-parser</a></p>
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
-@Data
-@Accessors(chain = true)
-public class VallisCycle {
+@Getter
+public final class VallisCycle {
 
     private static final long LOOP_TIME = 1600000; // 总周期时长（毫秒）
     private static final long WARM_TIME = 400000;  // 温暖期持续时间（毫秒）
@@ -22,13 +25,30 @@ public class VallisCycle {
     private static final Instant L_START = Instant.parse("2018-11-10T08:13:48Z");
 
 
-    private Instant activation;
-    private Instant expiry;
-    private boolean isWarm;
-    private String state;
-    private String timeLeft;
-    private String id;
-    private boolean expired;
+    /**
+     * 活动开始时间
+     */
+    private final Instant activation;
+    /**
+     * 活动结束时间
+     */
+    private final Instant expiry;
+    /**
+     * 活动是否处于温暖期
+     */
+    private final boolean isWarm;
+    /**
+     * 活动当前状态
+     */
+    private final String state;
+    /**
+     * 活动剩余时间
+     */
+    private final String timeLeft;
+    /**
+     * 活动是否已结束
+     */
+    private final boolean expired;
 
     /**
      * 构造函数，同时执行 getCurrentCycle 的逻辑

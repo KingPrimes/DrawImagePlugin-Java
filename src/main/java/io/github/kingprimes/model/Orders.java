@@ -9,6 +9,9 @@ import java.util.List;
 
 /**
  * Warframe orders查询结果
+ *
+ * @author KingPrimes
+ * @version 1.0.0
  */
 @Data
 @Accessors(chain = true)

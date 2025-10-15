@@ -1,20 +1,31 @@
 package io.github.kingprimes.utils;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 
+/**
+ * 时间工具类，提供时间计算和格式化功能
+ * 包含时间差计算、时区处理和日期获取等功能
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @SuppressWarnings("unused")
 public class TimeUtils {
+    /**
+     * 将毫秒时间差转换为可读的字符串格式
+     * 格式为: Xd Xh Xm Xs (分别表示天、小时、分钟、秒)
+     *
+     * @param millis 时间差(毫秒)
+     * @return 格式化后的时间差字符串
+     */
     public static String timeDeltaToString(long millis) {
-        long seconds = millis / 1000;
-        long days = seconds / (24 * 3600);
-        seconds %= (24 * 3600);
-        long hours = seconds / 3600;
-        seconds %= 3600;
-        long minutes = seconds / 60;
-        seconds %= 60;
+        Duration duration = Duration.ofMillis(Math.abs(millis));
+
+        long days = duration.toDays();
+        long hours = duration.toHours() % 24;
+        long minutes = duration.toMinutes() % 60;
+        long seconds = duration.getSeconds() % 60;
 
         StringBuilder sb = new StringBuilder();
         if (days > 0) sb.append(days).append("d ");
@@ -25,16 +36,37 @@ public class TimeUtils {
         return sb.toString().trim();
     }
 
+    /**
+     * 计算两个时间戳之间的分钟差（指定时区）
+     *
+     * @param startMillis 起始时间戳（毫秒）
+     * @param endMillis   结束时间戳（毫秒）
+     * @param timezone    时区ID
+     * @return 两个时间戳之间的分钟差（绝对值）
+     */
     public static long timeDeltaToMinutes(long startMillis, long endMillis, String timezone) {
         // 计算两个时区时间的分钟差（考虑时区偏移和夏令时）
         Duration duration = calculateTimeDelta(startMillis, endMillis, timezone);
         return Math.abs(duration.toMinutes());
     }
 
+    /**
+     * 计算两个时间戳之间的分钟差（使用系统默认时区）
+     *
+     * @param startMillis 起始时间戳（毫秒）
+     * @param endMillis   结束时间戳（毫秒）
+     * @return 两个时间戳之间的分钟差（绝对值）
+     */
     public static long timeDeltaToMinutes(long startMillis, long endMillis) {
         return timeDeltaToMinutes(startMillis, endMillis, TimeZoneUtil.getEffectiveTimeZone());
     }
 
+    /**
+     * 计算指定时间戳与当前时间的分钟差
+     *
+     * @param startMillis 起始时间戳（毫秒）
+     * @return 指定时间戳与当前时间的分钟差（绝对值）
+     */
     public static long timeDeltaToMinutes(long startMillis) {
         return timeDeltaToMinutes(startMillis, System.currentTimeMillis());
     }
@@ -56,7 +88,16 @@ public class TimeUtils {
         return timeDeltaToString(deltaMillis);
     }
 
+    /**
+     * 根据指定时区计算两个时间戳之间的时间差
+     *
+     * @param startMillis 起始时间戳（毫秒）
+     * @param endMillis   结束时间戳（毫秒）
+     * @param timezone    时区ID
+     * @return 两个时间戳之间的时间差Duration对象
+     */
     private static Duration calculateTimeDelta(long startMillis, long endMillis, String timezone) {
+        // 验证时区是否有效，无效则使用系统默认时区
         if (!TimeZoneUtil.isValidTimeZone(timezone)) {
             timezone = TimeZoneUtil.getEffectiveTimeZone();
         }
@@ -100,5 +141,45 @@ public class TimeUtils {
      */
     public static String timeDeltaToNow(long millis) {
         return timeDeltaToNow(millis, TimeZoneUtil.getEffectiveTimeZone());
+    }
+
+    /**
+     * 获取一周的第一天（周一）
+     *
+     * @return 本周第一天的LocalDateTime对象（UTC时区）
+     */
+    public static LocalDateTime getFirstDayOfWeek() {
+        LocalDate today = LocalDate.now(ZoneOffset.UTC);
+        LocalDate firstDay = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        return firstDay.atStartOfDay().atOffset(ZoneOffset.UTC).toLocalDateTime();
+    }
+
+    /**
+     * 获取一周的最后一天（周日）
+     *
+     * @return 本周最后一天的LocalDateTime对象（UTC时区，时间为23:59:59）
+     */
+    public static LocalDateTime getLastDayOfWeek() {
+        LocalDateTime firstDay = getFirstDayOfWeek();
+        return firstDay.plusDays(6).withHour(23).withMinute(59).withSecond(59).withNano(0);
+    }
+
+    /**
+     * 获取当天的开始时间
+     *
+     * @return 当天开始时间的LocalDateTime对象（UTC时区）
+     */
+    public static LocalDateTime getStartOfDay() {
+        return LocalDate.now(ZoneOffset.UTC).atStartOfDay().atOffset(ZoneOffset.UTC).toLocalDateTime();
+    }
+
+    /**
+     * 获取当天的结束时间
+     *
+     * @return 当天结束时间的LocalDateTime对象（UTC时区，时间为23:59:59）
+     */
+    public static LocalDateTime getEndOfDay() {
+        LocalDate today = LocalDate.now(ZoneOffset.UTC);
+        return today.atTime(23, 59, 59).atOffset(ZoneOffset.UTC).toLocalDateTime();
     }
 }

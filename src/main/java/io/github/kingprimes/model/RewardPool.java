@@ -7,6 +7,12 @@ import lombok.experimental.Accessors;
 
 import java.util.List;
 
+/**
+ * 奖励池
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @Data
 @Accessors(chain = true)
 public class RewardPool {

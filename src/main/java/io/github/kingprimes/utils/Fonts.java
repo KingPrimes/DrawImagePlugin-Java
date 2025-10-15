@@ -9,6 +9,7 @@ import java.util.logging.Logger;
  * 字体工具类，提供常用字体定义和字体加载功能
  *
  * @author KingPrimes
+ * @version 1.0.0
  */
 @SuppressWarnings("unused")
 public class Fonts {

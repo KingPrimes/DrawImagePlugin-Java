@@ -7,6 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * 图片IO工具类，提供了一些常用的图片操作方法
+ *
+ * @author KingPrimes
+ * @version 1.0.0
+ */
 @SuppressWarnings("unused")
 public final class ImageIOUtils {
     private ImageIOUtils() {
