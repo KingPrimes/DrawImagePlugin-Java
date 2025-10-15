@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.kingprimes</groupId>
-    <artifactId>DrawImagePlugin</artifactId>
+    <artifactId>draw-image-plugin</artifactId>
     <version>1.0.0</version>
     <name>DrawImagePlugin</name>
     <description>A Java library for image composition and drawing operations</description>
