@@ -23,9 +23,13 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: Setup GPG
+        run: |
+          echo "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}" | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
 
       - name: Build and Deploy
-        run: mvn clean deploy -P release -Dgpg.passphrase=$MAVEN_GPG_PASSPHRASE
+        run: mvn clean deploy -P release -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}

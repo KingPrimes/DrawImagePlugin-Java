@@ -125,6 +125,10 @@
                         </goals>
                         <configuration>
                             <passphrase>${gpg.passphrase}</passphrase>
+                            <gpgArguments>
+                                <argument>--pinentry-mode</argument>
+                                <argument>loopback</argument>
+                            </gpgArguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -148,6 +152,12 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <argument>--pinentry-mode</argument>
+                                        <argument>loopback</argument>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
