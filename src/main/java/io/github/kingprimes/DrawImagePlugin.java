@@ -1,5 +1,6 @@
 package io.github.kingprimes;
 
+import com.sun.jna.Pointer;
 import io.github.kingprimes.defaultdraw.DefaultDrawHelpImage;
 import io.github.kingprimes.defaultdraw.DefaultDrawWarframeSubscribeImage;
 import io.github.kingprimes.model.*;
@@ -257,4 +258,16 @@ public interface DrawImagePlugin {
      * @return 插件版本
      */
     String getPluginVersion();
+
+    /**
+     * 释放插件内存
+     */
+    void releaseMemory();
+
+    /**
+     * 释放插件内存
+     *
+     * @param pointer 释放的对象
+     */
+    void releaseMemory(Pointer pointer);
 }
