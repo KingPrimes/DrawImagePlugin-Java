@@ -6,9 +6,8 @@ import com.sun.jna.Pointer;
 import io.github.kingprimes.model.*;
 import io.github.kingprimes.model.enums.SyndicateEnum;
 import io.github.kingprimes.model.worldstate.*;
+import tools.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import java.util.Map;
  */
 public final class JNADrawPluginAdapter implements DrawImagePlugin {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private final NativeDrawLibrary library;
 
     public JNADrawPluginAdapter(String libraryName) {
@@ -394,20 +394,15 @@ public final class JNADrawPluginAdapter implements DrawImagePlugin {
         if (obj == null) {
             return Pointer.NULL;
         }
-
-        try (ByteArrayOutputStream bas = new ByteArrayOutputStream();
-             ObjectOutputStream oos = new ObjectOutputStream(bas)
+        byte[] jsonData = objectMapper.writeValueAsBytes(obj);
+        try (Memory memory = new Memory(jsonData.length + 4)
         ) {
-            oos.writeObject(obj);
-            byte[] serializedData = bas.toByteArray();
 
-            try (Memory memory = new Memory(serializedData.length)
-            ) {
-                memory.write(0, serializedData, 0, serializedData.length);
-                return memory;
-            }
+            memory.setInt(0, jsonData.length); // 写入长度
+            memory.write(4, jsonData, 0, jsonData.length);
+            return memory;
         } catch (Exception e) {
-            throw new RuntimeException("序列化对象失败", e);
+            throw new RuntimeException("JSON序列化对象失败", e);
         }
     }
 
